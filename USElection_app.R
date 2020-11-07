@@ -70,6 +70,8 @@ server <- function(input, output) {
     
     df <- df %>% rename(time = timestamp)
     
+    df$votes_remaining[which(df$state == "Georgia (EV: 16)")] <- df$votes_remaining + 25000
+    
     p <- ggplot() + geom_point(data = df, aes(total_votes, vote_differential, label = time)) +geom_line(data = df, aes(total_votes, vote_differential)) +
       geom_vline(xintercept = min(df$votes_remaining) + tail(df$total_votes,1), linetype="dotted") +
       geom_hline(yintercept = 0, linetype="dotted") +
